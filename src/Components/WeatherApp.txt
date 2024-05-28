@@ -1,0 +1,32 @@
+import React, { useState } from 'react';
+import Heros from './Heros.mjs';
+import Feature1 from './Feature1.mjs';
+
+export default function WeatherContainer() {
+  const [data, setData] = useState(null);
+
+  const fetchWeatherData = async (cityName, stateName, countryName) => {
+    try {
+      const response = await fetch('http://localhost:5000/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cityName, stateName, countryName }),
+      });
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+      setData(null);
+    }
+  };
+
+  return (
+    <div>
+      <Heros fetchWeatherData={fetchWeatherData} />
+      <Feature1 data={data} />
+    </div>
+  );
+}
+https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.theodysseyonline.com%2Ffavorite-type-of-weather-sunny&psig=AOvVaw3S-Ti-szgy9RTcm6Zr9_I2&ust=1716825457342000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKD8nbTXq4YDFQAAAAAdAAAAABAE
